@@ -11,7 +11,7 @@ pub fn file_exists(path: &str) -> Result<PathBuf, &'static str> {
     Err("input file does not exist")
 }
 
-pub fn read_to_string(path: &PathBuf) -> String {
+pub fn read_file_to_string(path: &PathBuf) -> String {
     fs::read_to_string(path)
         .expect("failed to read file")
         .to_uppercase()

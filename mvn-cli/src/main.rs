@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 
 use clap::{Parser, Subcommand};
-use utils::io::{file_exists, read_to_string};
+use utils::io::{file_exists, read_file_to_string};
 use utils::Executor;
 
 #[derive(Parser)]
@@ -32,13 +32,13 @@ fn main() {
     let cli = Cli::parse();
     match &cli.command {
         Commands::Assemble { input } => {
-            let program = read_to_string(input);
+            let program = read_file_to_string(input);
             let process_result = assembler::processor::process(&program);
             assembler::writer::print(&program, process_result);
         }
         Commands::Link(args) => args.execute(),
         Commands::Relocate { input, base } => {
-            let program = read_to_string(input);
+            let program = read_file_to_string(input);
             let process_result = relocator::processor::process(&program, *base);
             relocator::writer::print(process_result);
         }
