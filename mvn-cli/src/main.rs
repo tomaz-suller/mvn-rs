@@ -15,10 +15,7 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    Assemble {
-        #[arg(short, long, value_parser = file_exists)]
-        input: PathBuf,
-    },
+    Assemble(assembler::Args),
     Link(linker::Args),
     Relocate {
         #[arg(short, long, value_parser = file_exists)]
@@ -31,11 +28,7 @@ enum Commands {
 fn main() {
     let cli = Cli::parse();
     match &cli.command {
-        Commands::Assemble { input } => {
-            let program = read_file_to_string(input);
-            let process_result = assembler::processor::process(&program);
-            assembler::writer::print(&program, process_result);
-        }
+        Commands::Assemble(args) => args.execute(),
         Commands::Link(args) => args.execute(),
         Commands::Relocate { input, base } => {
             let program = read_file_to_string(input);
