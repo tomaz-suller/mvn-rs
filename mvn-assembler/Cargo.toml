@@ -9,6 +9,7 @@ edition = "2021"
 indoc = "1.0.6"
 nom = "7.1.1"
 annotate-snippets = { version = "0.9.1", features = ["color"] }
+clap = { version = "4.1.4", features = ["derive"] }
 assembly = { path = "../mvn-assembly", package = "mvn-assembly" }
 utils = { path = "../mvn-utils", package = "mvn-utils" }
 
